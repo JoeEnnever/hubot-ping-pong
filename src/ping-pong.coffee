@@ -62,6 +62,8 @@ module.exports = (robot) ->
       record[1] - record[2]
     robot.logger.info(results)
     results = results[-5..].reverse
+    robot.logger.info(results)
     message = ("#{i + 1}. #{record[0]} - #{record[1]} Win(s) #{record[2]} Loss(es)" for record, i in results)
+    robot.logger.info(message)
     msg.send message.join("\n")
 
