@@ -1,5 +1,5 @@
 # Description:
-#   Give or take away points. Keeps track and even prints out graphs.
+#   Ping pong
 #
 # Dependencies:
 #   "underscore": ">= 1.0.0"
@@ -8,21 +8,13 @@
 # Configuration:
 #
 # Commands:
-#   <name>++
-#   <name>--
-#   hubot score <name> [for <reason>]
-#   hubot top <amount>
-#   hubot bottom <amount>
-#   hubot erase <user> [<reason>]
-#   GET http://<url>/hubot/scores[?name=<name>][&direction=<top|botton>][&limit=<10>]
+#   ping-ping record @player1 score2 @player2 score2
 #
 # Author:
-#   ajacksified
+#   JoeEnnever
 
 
 _ = require('underscore')
-clark = require('clark')
-querystring = require('querystring')
 ScoreKeeper = require('./scorekeeper')
 
 module.exports = (robot) ->
