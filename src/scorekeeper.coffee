@@ -38,6 +38,7 @@ class ScoreKeeper
       game_players = []
       for player, score of game
         game_players.push([player, score])
+        @robot.logger.info "Game players #{game_players}"
       [player1, score1] = game_players[0]
       [player2, score2] = game_players[1]
       [winner, loser] =
