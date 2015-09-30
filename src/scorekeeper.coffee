@@ -36,6 +36,7 @@ class ScoreKeeper
     mmrChange
 
   calcMmrChange: (winner, loser) ->
+    @storage.mmrs ||= {}
     @storage.mmrs[winner] ||= 2000
     @storage.mmrs[loser] ||= 2000
 
