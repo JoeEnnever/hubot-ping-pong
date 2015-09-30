@@ -16,7 +16,7 @@ class ScoreKeeper
         games: []# Each game is { user1: score, user2: score }
       }
 
-      @robot.logger.debug "Ping Pong Data Loaded: " + JSON.stringify(@storage, null, 2)
+      @robot.logger.info "Ping Pong Data Loaded: " + JSON.stringify(@storage, null, 2)
     @robot.brain.on "loaded", storageLoaded
     storageLoaded() # just in case storage was loaded before we got here
 
@@ -38,7 +38,8 @@ class ScoreKeeper
       game_players = []
       for player, score of game
         game_players.push([player, score])
-        @robot.logger.info "Game players #{game_players}"
+
+      @robot.logger.info "Game players #{game_players}"
       [player1, score1] = game_players[0]
       [player2, score2] = game_players[1]
       [winner, loser] =
