@@ -34,7 +34,7 @@ class ScoreKeeper
     #
     players = {
     }
-    for game in games
+    for game in @storage.games
       game_players = []
       for player, score in game
         game_players.push([player, score])
