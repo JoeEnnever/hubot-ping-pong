@@ -61,6 +61,6 @@ module.exports = (robot) ->
     results = scoreKeeper.matchRecords().sort (record) ->
       record[1] - record[2]
     results = results[-5..].reverse
-    message = "#{i + 1}. #{record[0]} - #{record[1]} Win(s) #{record[2]} Loss(es)" for record, i in results
+    message = ("#{i + 1}. #{record[0]} - #{record[1]} Win(s) #{record[2]} Loss(es)" for record, i in results)
     msg.send message.join("\n")
 

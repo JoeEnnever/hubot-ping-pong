@@ -41,7 +41,7 @@ class ScoreKeeper
 
       @robot.logger.info "Game players #{game_players}"
       unless game_players.length == 2
-        @robot.logger.info "Skipping recording bad game #{game}"
+        @robot.logger.info "Skipping recording bad game #{JSON.stringify(game, null, 2)}"
         continue
       [player1, score1] = game_players[0]
       [player2, score2] = game_players[1]
