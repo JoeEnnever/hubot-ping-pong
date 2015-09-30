@@ -36,7 +36,7 @@ class ScoreKeeper
     }
     for game in @storage.games
       game_players = []
-      for player, score in game
+      for player, score of game
         game_players.push([player, score])
       [player1, score1] = game_players[0]
       [player2, score2] = game_players[1]
@@ -51,7 +51,7 @@ class ScoreKeeper
       players[loser] ||= [0, 0]
       players[loser][1]++
 
-    ([player, wl[0], wl[1]] for player, wl in players)
+    ([player, wl[0], wl[1]] for player, wl of players)
 
 
 module.exports = ScoreKeeper
