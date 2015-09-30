@@ -10,6 +10,7 @@
 # Commands:
 #   hubot ping-pong record @player1 score2 @player2 score2 - record a match
 #   hubot ping-pong top - gives the top players by wins - losses
+#   hubot ping-pong mmrs - gives the top players by mmr
 #
 # Author:
 #   JoeEnnever
@@ -64,8 +65,14 @@ module.exports = (robot) ->
       score1 - score2
     robot.logger.info(results)
     results = results[-5..].reverse()
-    robot.logger.info(results)
     message = ("#{i + 1}. #{record[0]} - #{record[1]} Win(s) #{record[2]} Loss(es)" for record, i in results)
-    robot.logger.info(message)
     msg.send message.join("\n")
+
+  # hubot pingpong mmrs
+  robot.response /ping(?:-)?pong mmrs/i, (msg) ->
+    mmrs = ([player, mmr] for player, mmr of scoreKeeper.mmrs())
+    results = mmrs.sort (record1, record2) ->
+      record1[1] - record2[1]
+    results = results[-5..].reverse()
+    message = ("#{i + 1}. #{record[0]} - #{record[1]} MMR" for record, i in results)
 

@@ -35,6 +35,9 @@ class ScoreKeeper
     @robot.brain.save()
     mmrChange
 
+  mmrs: ->
+    @storage.mmrs
+
   calcMmrChange: (winner, loser) ->
     @storage.mmrs ||= {}
     @storage.mmrs[winner] ||= 2000
