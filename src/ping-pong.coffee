@@ -58,8 +58,10 @@ module.exports = (robot) ->
 
   # hubot pingpong top
   robot.respond /ping(?:-)?pong top/i, (msg) ->
-    results = scoreKeeper.matchRecords().sort (record) ->
-      record[1] - record[2]
+    results = scoreKeeper.matchRecords().sort (record1, record2) ->
+      score1 = record1[1] - record1[2]
+      score2 = record2[1] - record2[2]
+      score1 - score2
     robot.logger.info(results)
     results = results[-5..].reverse()
     robot.logger.info(results)
