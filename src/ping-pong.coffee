@@ -8,7 +8,8 @@
 # Configuration:
 #
 # Commands:
-#   hubot ping-pong record @player1 score2 @player2 score2
+#   hubot ping-pong record @player1 score2 @player2 score2 - record a match
+#   hubot ping-pong top - gives the top players by wins - losses
 #
 # Author:
 #   JoeEnnever
@@ -54,3 +55,12 @@ module.exports = (robot) ->
     if success?
       message = "Congrats #{winner}, beating #{loser} #{high}-#{low}"
       msg.send message
+
+  # hubot pingpong top
+  robot.respond /ping(?:-)?pong top/i, (msg) ->
+    results = scoreKeeper.matchRecords().sort (record) ->
+      record[1] - record[2]
+    results = results[-5..].reverse
+    message = "#{i + 1}. #{record[0]} - #{record[1]} Win(s) #{record[2]} Loss(es)" for record, i in results
+    msg.send message.join("\n")
+

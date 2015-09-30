@@ -28,4 +28,30 @@ class ScoreKeeper
     @robot.brain.save()
     true
 
+  matchRecords: ->
+    # { joe => [wins, losses] }
+    #
+    #
+    players = {
+    }
+    for game in games
+      game_players = []
+      for player, score in game
+        game_players.push([player, score])
+      [player1, score1] = game_players[0]
+      [player2, score2] = game_players[1]
+      [winner, loser] =
+        if score1 > score2
+          [player1, player2]
+        else
+          [player2, player1]
+      players[winner] ||= [0, 0]
+      players[winner][0]++
+
+      players[loser] ||= [0, 0]
+      players[loser][1]++
+
+    ([player, wl[0], wl[1]] for player, wl in players)
+
+
 module.exports = ScoreKeeper
