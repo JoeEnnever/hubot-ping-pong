@@ -35,7 +35,6 @@ class ScoreKeeper
     @robot.brain.save()
     mmrChange
 
-
   calcMmrChange: (winner, loser) ->
     @storage.mmrs[winner] ||= 2000
     @storage.mmrs[loser] ||= 2000
@@ -57,7 +56,7 @@ class ScoreKeeper
 
   mmrScore: (a, b) ->
     exponent = (b - a) / 400.0
-    1.0 / (1.0 + Math.pow(10, exponent)
+    1.0 / (1.0 + Math.pow(10, exponent))
 
   matchRecords: ->
     # { joe => [wins, losses] }
