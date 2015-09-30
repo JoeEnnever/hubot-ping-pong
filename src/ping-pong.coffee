@@ -69,7 +69,7 @@ module.exports = (robot) ->
     msg.send message.join("\n")
 
   # hubot pingpong mmrs
-  robot.response /ping(?:-)?pong mmrs/i, (msg) ->
+  robot.respond /ping(?:-)?pong mmrs/i, (msg) ->
     mmrs = ([player, mmr] for player, mmr of scoreKeeper.mmrs())
     results = mmrs.sort (record1, record2) ->
       record1[1] - record2[1]
