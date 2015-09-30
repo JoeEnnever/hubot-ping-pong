@@ -50,11 +50,11 @@ module.exports = (robot) ->
              else
                [person2, person1, score2, score1]
 
-    success = scoreKeeper.record(person1, score1, person2, score2)
+    [winnerMmr, loserMmr] = scoreKeeper.record(person1, score1, person2, score2)
 
-    if success?
-      message = "Congrats #{winner}, beating #{loser} #{high}-#{low}"
-      msg.send message
+    msg.send "Congrats #{winner}, beating #{loser} #{high}-#{low}\n"
+    msg.send "#{winner} MMR is now #{winnerMmr}"
+    msg.send "#{loser} MMR is now #{loserMmr}"
 
   # hubot pingpong top
   robot.respond /ping(?:-)?pong top/i, (msg) ->
