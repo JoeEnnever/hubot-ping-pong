@@ -49,6 +49,8 @@ class ScoreKeeper
     @robot.logger.info("Loser was #{loserMmr}")
     winnerMmr += 50 * (1 - winnerExpectedScore)
     loserMmr -= 50 * (1 - loserExpectedScore)
+    winnerMmr = parseInt(winnerMmr, 10)
+    loserMmr = parseInt(loserMmr, 10)
     @robot.logger.info("Winner is #{winnerMmr}")
     @robot.logger.info("Loser is #{loserMmr}")
     @storage.mmrs[winner] = winnerMmr
@@ -68,6 +70,7 @@ class ScoreKeeper
     for game in @storage.games
       game_players = []
       for player, score of game
+        continue if player.indexOf('@test') >= 0
         game_players.push([player, score])
 
       unless game_players.length == 2
