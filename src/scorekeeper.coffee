@@ -40,6 +40,9 @@ class ScoreKeeper
         game_players.push([player, score])
 
       @robot.logger.info "Game players #{game_players}"
+      unless game_players.length == 2
+        @robot.logger.info "Skipping recording bad game #{game}"
+        continue
       [player1, score1] = game_players[0]
       [player2, score2] = game_players[1]
       [winner, loser] =
