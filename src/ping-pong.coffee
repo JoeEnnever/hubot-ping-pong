@@ -8,7 +8,7 @@
 # Configuration:
 #
 # Commands:
-#   ping-ping record @player1 score2 @player2 score2
+#   ping-pong record @player1 score2 @player2 score2
 #
 # Author:
 #   JoeEnnever
@@ -22,15 +22,22 @@ module.exports = (robot) ->
 
   # hubot pingpong record @joe 21 @keith 17
   robot.respond ///
-    (?:ping(?:-)?pong record)
+    (?:ping(?:-)?pong)
+    \s*
+    (?:record)
+    \s*
     # person 1
     (@\w+)
+    \s*
     # score 1
     (\d+)
+    \s*
     # person 2
     (@\w+)
+    \s*
     # score 2
     (\d+)
+    \s*
     $ # eol
   ///i, (msg) ->
     [__, person1, score1, person2, score2] = msg.match
