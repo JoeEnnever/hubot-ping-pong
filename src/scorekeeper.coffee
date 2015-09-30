@@ -39,7 +39,6 @@ class ScoreKeeper
       for player, score of game
         game_players.push([player, score])
 
-      @robot.logger.info "Game players #{game_players}"
       unless game_players.length == 2
         @robot.logger.info "Skipping recording bad game #{JSON.stringify(game, null, 2)}"
         continue
