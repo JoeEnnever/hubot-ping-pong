@@ -8,7 +8,7 @@
 # Configuration:
 #
 # Commands:
-#   ping-pong record @player1 score2 @player2 score2
+#   hubot ping-pong record @player1 score2 @player2 score2
 #
 # Author:
 #   JoeEnnever
