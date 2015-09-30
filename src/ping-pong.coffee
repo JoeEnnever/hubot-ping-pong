@@ -75,4 +75,5 @@ module.exports = (robot) ->
       record1[1] - record2[1]
     results = results[-5..].reverse()
     message = ("#{i + 1}. #{record[0]} - #{record[1]} MMR" for record, i in results)
+    msg.send message.join("\n")
 
