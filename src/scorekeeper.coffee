@@ -9,6 +9,9 @@
 #
 # Author:
 #   ajacksified
+
+_ = require('underscore')
+
 class ScoreKeeper
   constructor: (@robot) ->
     storageLoaded = =>
@@ -36,7 +39,8 @@ class ScoreKeeper
     mmrChange
 
   mmrs: ->
-    @storage.mmrs
+    _.pick @storage.mmrs, (_value, key) ->
+      key.indexOf('@test') < 0
 
   calcMmrChange: (winner, loser) ->
     @storage.mmrs ||= {}

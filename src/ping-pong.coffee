@@ -9,8 +9,8 @@
 #
 # Commands:
 #   hubot ping-pong record @player1 score2 @player2 score2 - record a match
-#   hubot ping-pong top - gives the top players by wins - losses
-#   hubot ping-pong mmrs - gives the top players by mmr
+#   hubot ping-pong top (n) - gives the n top players by wins - losses
+#   hubot ping-pong mmrs (n) - gives the top n players by mmr
 #
 # Author:
 #   JoeEnnever
@@ -58,22 +58,26 @@ module.exports = (robot) ->
     msg.send "#{loser} MMR is now #{loserMmr}"
 
   # hubot pingpong top
-  robot.respond /ping(?:-)?pong top/i, (msg) ->
+  robot.respond /ping(?:-)?pong top( \d+)?/i, (msg) ->
+    [__, countStr] = msg.match
+    count = parseInt(countStr) || 5
     results = scoreKeeper.matchRecords().sort (record1, record2) ->
       score1 = record1[1] - record1[2]
       score2 = record2[1] - record2[2]
       score1 - score2
     robot.logger.info(results)
-    results = results[-5..].reverse()
+    results = results[-count..].reverse()
     message = ("#{i + 1}. #{record[0]} - #{record[1]} Win(s) #{record[2]} Loss(es)" for record, i in results)
     msg.send message.join("\n")
 
   # hubot pingpong mmrs
-  robot.respond /ping(?:-)?pong mmrs/i, (msg) ->
-    mmrs = ([player, mmr] for player, mmr of scoreKeeper.mmrs() unless player?.indexOf('@test') >= 0)
+  robot.respond /ping(?:-)?pong mmrs( \d+)/i, (msg) ->
+    [__, countStr] = msg.match
+    count = parseInt(countStr) || 5
+    mmrs = ([player, mmr] for player, mmr of scoreKeeper.mmrs())
     results = mmrs.sort (record1, record2) ->
       record1[1] - record2[1]
-    results = results[-5..].reverse()
+    results = results[-count..].reverse()
     message = ("#{i + 1}. #{record[0]} - #{record[1]} MMR" for record, i in results)
     msg.send message.join("\n")
 
