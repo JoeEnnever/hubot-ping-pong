@@ -50,7 +50,10 @@ module.exports = (robot) ->
                [person1, person2, score1, score2]
              else
                [person2, person1, score2, score1]
-
+    for person in [person1, person2]
+      unless scoreKeeper.userExists(person)
+        msg.send "Uh oh, I don't see anyone named #{person}. Game not recorded"
+        return
     [winnerMmr, loserMmr] = scoreKeeper.record(person1, score1, person2, score2)
 
     msg.send "Congrats #{winner}, beating #{loser} #{high}-#{low}\n"
