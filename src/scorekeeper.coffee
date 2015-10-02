@@ -19,6 +19,8 @@ class ScoreKeeper
         games: [] # Each game is { user1: score, user2: score }
         mmrs: {} # player -> MMR
       }
+      @users = (data.name for id, data of @robot.brain.users())
+      @robot.logger.info(@users)
 
       @robot.logger.info "Ping Pong Data Loaded: " + JSON.stringify(@storage, null, 2)
     @robot.brain.on "loaded", storageLoaded
