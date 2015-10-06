@@ -74,7 +74,7 @@ module.exports = (robot) ->
     msg.send message.join("\n")
 
   # hubot pingpong mmrs
-  robot.respond /ping(?:-)?pong mmrs( \d+)/i, (msg) ->
+  robot.respond /ping(?:-)?pong mmrs( \d+)?/i, (msg) ->
     [__, countStr] = msg.match
     count = parseInt(countStr) || 5
     mmrs = ([player, mmr] for player, mmr of scoreKeeper.mmrs())

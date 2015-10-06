@@ -45,7 +45,7 @@ class ScoreKeeper
 
   mmrs: ->
     _.pick @storage.mmrs, (_value, key) ->
-      key.indexOf('@test') < 0
+      @userExists(key)
 
   calcMmrChange: (winner, loser) ->
     @storage.mmrs ||= {}
@@ -82,7 +82,7 @@ class ScoreKeeper
     for game in @storage.games
       game_players = []
       for player, score of game
-        continue if player.indexOf('@test') >= 0
+        continue unless @userExists(player)
         game_players.push([player, score])
 
       unless game_players.length == 2
