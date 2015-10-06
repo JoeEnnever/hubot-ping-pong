@@ -44,7 +44,7 @@ class ScoreKeeper
     user in users
 
   mmrs: ->
-    _.pick @storage.mmrs, (_value, key) ->
+    _.pick @storage.mmrs, (_value, key) =>
       @userExists(key)
 
   calcMmrChange: (winner, loser) ->
