@@ -56,11 +56,11 @@ class ScoreKeeper
     loserMmr = @storage.mmrs[loser]
 
     winnerExpectedScore = @mmrScore(winnerMmr, loserMmr)
-    loserExpectedScore = @mmrScore(loserMmr, winnerMmr)
     @robot.logger.info("Winner was #{winnerMmr}")
     @robot.logger.info("Loser was #{loserMmr}")
-    winnerMmr += 50 * (1 - winnerExpectedScore)
-    loserMmr -= 50 * (1 - loserExpectedScore)
+    pointAdjustment = (1 - winnerExpectedScore)
+    winnerMmr += 50 * pointAdjustment
+    loserMmr -= 50 * pointAdjustment
     winnerMmr = parseInt(winnerMmr, 10)
     loserMmr = parseInt(loserMmr, 10)
     @robot.logger.info("Winner is #{winnerMmr}")
