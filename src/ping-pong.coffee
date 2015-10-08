@@ -98,6 +98,7 @@ module.exports = (robot) ->
     closestAbove = 9999999
     above = below = null
     for otherUser, otherMmr of scoreKeeper.mmrs()
+      continue if otherUser == user
       if otherMmr > closetBelow && otherMmr <= mmr
         closetBelow = otherMmr
         below = otherUser
@@ -107,4 +108,4 @@ module.exports = (robot) ->
 
     nearby.push(below) if below
     nearby.push(above) if above
-    msg.send "Why don't you play #{nearby.join(" or")}?"
+    msg.send "Why don't you play #{nearby.join(" or ")}?"
