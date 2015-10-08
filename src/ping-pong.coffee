@@ -104,7 +104,7 @@ module.exports = (robot) ->
         below = otherUser
       if otherMmr < closestAbove && otherMmr >= mmr
         closestAbove = otherMmr
-        above = user
+        above = otherUser
 
     nearby.push(below) if below
     nearby.push(above) if above
