@@ -21,10 +21,10 @@ ScoreKeeper = require('./scorekeeper')
 
 module.exports = (robot) ->
   scoreKeeper = new ScoreKeeper(robot)
-
+  pingpong = "(?:p[io]ng(?:[- ])?p[io]ng)"
   # hubot pingpong record @joe 21 @keith 17
   robot.respond ///
-    (?:ping(?:-)?pong)
+    #{pingpong}
     \s*
     (?:record)
     \s*
@@ -61,7 +61,7 @@ module.exports = (robot) ->
     msg.send "#{loser} MMR is now #{loserMmr}"
 
   # hubot pingpong top
-  robot.respond /ping(?:-)?pong top( \d+)?/i, (msg) ->
+  robot.respond ///#{pingpong}\s*top(\s*\d+)?///i, (msg) ->
     [__, countStr] = msg.match
     count = parseInt(countStr) || 5
     results = scoreKeeper.matchRecords().sort (record1, record2) ->
@@ -74,7 +74,7 @@ module.exports = (robot) ->
     msg.send message.join("\n")
 
   # hubot pingpong mmrs
-  robot.respond /ping(?:-)?pong mmrs( \d+)?/i, (msg) ->
+  robot.respond ///#{pingpong}\s*mmrs(\s*\d+)?///i, (msg) ->
     [__, countStr] = msg.match
     count = parseInt(countStr) || 5
     mmrs = ([player, mmr] for player, mmr of scoreKeeper.mmrs())
@@ -84,3 +84,27 @@ module.exports = (robot) ->
     message = ("#{i + 1}. #{record[0]} - #{record[1]} MMR" for record, i in results)
     msg.send message.join("\n")
 
+  robot.respond ///#{pingpong}\s*who\s*should\s*I\s*play///i, (msg) ->
+    user = msg.user
+    user = "@#{user}" unless user[0] == '@'
+    mmr = scoreKeeper.mmrs()[user]
+    unless mmr
+      msg.send "Sorry, I don't have an MMR for you, #{user}"
+      msg.send "Go play some ping-pong!"
+      return
+
+    nearby = []
+    closetBelow = 0
+    closestAbove = 9999999
+    above = below = null
+    for otherUser, otherMmr of scoreKeeper.mmrs()
+      if otherMmr > closetBelow && otherMmr <= mmr
+        closetBelow = otherMmr
+        below = otherUser
+      if otherMmr < closestAbove && otherMmr >= mmr
+        closestAbove = otherMmr
+        above = user
+
+    nearby.push(below) if below
+    nearby.push(above) if above
+    msg.send "Why don't you play #{nearby.join(" or")}?"
