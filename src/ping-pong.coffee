@@ -85,8 +85,9 @@ module.exports = (robot) ->
     msg.send message.join("\n")
 
   robot.respond ///#{pingpong}\s*who\s*should\s*I\s*play///i, (msg) ->
-    user = msg.user
-    robot.logger.info(key for key, value of msg)
+    user = msg.message.user
+    robot.logger.info(JSON.stringify(user))
+    robot.logger.info(JSON.stringify(msg.message))
     user = "@#{user}" unless user[0] == '@'
     mmr = scoreKeeper.mmrs()[user]
     unless mmr
