@@ -110,7 +110,7 @@ module.exports = (robot) ->
     nearby.push(above) if above
     msg.send "Why don't you play #{nearby.join(" or ")}?"
 
-  robot.respond ///#{pingpong} reset mmrs///i, (msg) ->
+  robot.respond ///#{pingpong}\s*reset\s*mmrs///i, (msg) ->
     user = msg.message.user.name
     user = "@#{user}" unless user[0] == '@'
     admin = process.env.HUBOT_PING_PONG_ADMIN_USER
