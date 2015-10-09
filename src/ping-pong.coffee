@@ -109,3 +109,13 @@ module.exports = (robot) ->
     nearby.push(below) if below
     nearby.push(above) if above
     msg.send "Why don't you play #{nearby.join(" or ")}?"
+
+  robot.respond ///#{pingpong} reset mmrs///i, (msg) ->
+    user = msg.message.user.name
+    user = "@#{user}" unless user[0] == '@'
+    admin = process.env.HUBOT_PING_PONG_ADMIN_USER
+    unless user == admin
+      msg.send "Sorry, only #{admin} can reset the leaderboard"
+      return
+    scoreKeeper.resetMmrs()
+    msg.send "MMR leaderboard reset"
