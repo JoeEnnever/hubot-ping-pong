@@ -21,7 +21,7 @@ ScoreKeeper = require('./scorekeeper')
 
 module.exports = (robot) ->
   scoreKeeper = new ScoreKeeper(robot)
-  pingpong = "(?:p[io]ng(?:[- ])?p[io]ng)"
+  pingpong = "(?:(:)?p[io]ng(?:[- ])?p[io]ng(:)?)"
   # hubot pingpong record @joe 21 @keith 17
   robot.respond ///
     #{pingpong}
