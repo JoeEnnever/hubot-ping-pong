@@ -11,6 +11,8 @@
 #   hubot ping-pong record @player1 score2 @player2 score2 - record a match
 #   hubot ping-pong top (n) - gives the n top players by wins - losses
 #   hubot ping-pong mmrs (n) - gives the top n players by mmr
+#   hubot who should I play? - tells you the closest players to your MMR
+#   hubot ping-pong reset mmrs - resets the scores
 #
 # Author:
 #   JoeEnnever
@@ -74,7 +76,7 @@ module.exports = (robot) ->
     msg.send message.join("\n")
 
   # hubot pingpong mmrs
-  robot.respond ///#{pingpong}\s*mmrs(\s*\d+)?///i, (msg) ->
+  robot.respond ///#{pingpong}\s*mmr(?:s)(\s*\d+)?///i, (msg) ->
     [__, countStr] = msg.match
     count = parseInt(countStr) || 5
     mmrs = ([player, mmr] for player, mmr of scoreKeeper.mmrs())
@@ -117,5 +119,5 @@ module.exports = (robot) ->
     unless user == admin
       msg.send "Sorry, only #{admin} can reset the leaderboard"
       return
-    scoreKeeper.resetMmrs()
+    scoreKeeper.reset()
     msg.send "MMR leaderboard reset"

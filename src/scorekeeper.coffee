@@ -73,8 +73,9 @@ class ScoreKeeper
     exponent = (b - a) / 400.0
     1.0 / (1.0 + Math.pow(10, exponent))
 
-  resetMmrs: ->
+  reset: ->
     @storage.mmrs = {}
+    @storage.games = []
     @robot.brain.save()
 
   matchRecords: ->
