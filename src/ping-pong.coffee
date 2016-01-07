@@ -52,6 +52,9 @@ module.exports = (robot) ->
                [person1, person2, score1, score2]
              else
                [person2, person1, score2, score1]
+    if person1 == person2
+      msg.send "Damnit Todd"
+      return
     for person in [person1, person2]
       unless scoreKeeper.userExists(person)
         msg.send "Uh oh, I don't see anyone named #{person}. Game not recorded"
