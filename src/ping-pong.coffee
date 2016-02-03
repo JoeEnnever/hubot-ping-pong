@@ -86,7 +86,7 @@ module.exports = (robot) ->
     results = mmrs.sort (record1, record2) ->
       record1[1] - record2[1]
     results = results[-count..].reverse()
-    message = ("#{i + 1}. #{record[0]} - #{record[1]} MMR" for record, i in results)
+    message = ("#{i + 1}. #{record[0][1..-1]} - #{record[1]} MMR" for record, i in results)
     msg.send message.join("\n")
 
   robot.respond ///#{pingpong}\s*who\s*should\s*I\s*play///i, (msg) ->
