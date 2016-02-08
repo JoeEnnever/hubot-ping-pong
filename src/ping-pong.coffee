@@ -21,7 +21,6 @@ ScoreKeeper = require('./scorekeeper')
 
 module.exports = (robot) ->
   games = process.env.HUBOT_MMR_GAMES.split(',')
-  console.log(JSON.stringify(games))
   scoreKeeper = new ScoreKeeper(robot, games)
   pingpong = "(?:(?::)?p[io]ng(?:[- ])?p[io]ng(?::)?)"
   gamesRegex = "(#{games.join("|")})"

@@ -16,6 +16,7 @@ class ScoreKeeper
   constructor: (@robot, @games) ->
     storageLoaded = =>
       @storage = @robot.brain.data
+      console.log(JSON.stringify(@games))
       for game in @games
         @storage[game] ||= {
           games: [] # Each game is { user1: score, user2: score }
