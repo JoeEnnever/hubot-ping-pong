@@ -28,6 +28,7 @@ class ScoreKeeper
           games: [] # Each game is { user1: score, user2: score }
           mmrs: {} # player -> MMR
         }
+      @storage.pingpong = @storage.pingPong
       @users = ("@#{data.name}" for id, data of @robot.brain.users())
 
     @robot.brain.on "loaded", storageLoaded
@@ -88,14 +89,8 @@ class ScoreKeeper
 module.exports = (robot) ->
   games = process.env.HUBOT_MMR_GAMES.split(',')
   scoreKeeper = new ScoreKeeper(robot, games)
-  pingpong = "(?:(?::)?p[io]ng(?:[- ])?p[io]ng(?::)?)"
   gamesRegex = "(#{games.join("|")})"
-  games = games.map (game) ->
-    if game.match(pingpong)
-      'pingPong'
-    else
-      game
-  # hubot pingpong record @joe 21 @keith 17
+
   robot.respond ///
     (?:mmr)
     \s*
