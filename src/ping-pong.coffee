@@ -117,7 +117,7 @@ module.exports = (robot) ->
     \s*
     $ # eol
   ///i, (msg) ->
-    [game, person1, score1, person2, score2] = msg.match
+    [__, game, person1, score1, person2, score2] = msg.match
     score1 = parseInt(score1, 10)
     score2 = parseInt(score2, 10)
     game = game.toLowerCase()
@@ -143,7 +143,7 @@ module.exports = (robot) ->
 
   # hubot pingpong mmrs
   robot.respond ///mmr(?:s)?\s*#{gamesRegex}\s*top(\s*\d+)?///i, (msg) ->
-    [game, countStr] = msg.match
+    [__, game, countStr] = msg.match
     game = game.toLowerCase()
     unless game in games
       msg.send "I don't know game #{game}, just #{games}"
