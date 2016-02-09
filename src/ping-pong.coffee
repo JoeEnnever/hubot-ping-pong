@@ -22,8 +22,9 @@ class ScoreKeeper
   constructor: (@robot, @games) ->
     storageLoaded = =>
       @storage = @robot.brain.data
+      @storage.mmr ||= {}
       for game in @games
-        @storage[game] ||= {
+        @storage.mmr[game] ||= {
           games: [] # Each game is { user1: score, user2: score }
           mmrs: {} # player -> MMR
         }
@@ -39,7 +40,7 @@ class ScoreKeeper
     game[player2] = score2
     console.log(JSON.stringify(game))
     console.log(JSON.stringify(@storage[game]))
-    @storage[game].games.push(game)
+    @storage.mmr[game].games.push(game)
     [winner, loser] =
       if score1 > score2
         [player1, player2]
@@ -53,13 +54,13 @@ class ScoreKeeper
     user in @users
 
   mmrs: (game) ->
-    _.pick @storage[game].mmrs, (_value, key) =>
+    _.pick @storage.mrr[game].mmrs, (_value, key) =>
       @userExists(key)
 
   calcMmrChange: (game, winner, loser) ->
-    @storage.mmrs ||= {}
-    @storage.mmrs[winner] ||= 2000
-    @storage.mmrs[loser] ||= 2000
+    @storage.mmr[game].mmrs ||= {}
+    @storage.mmr[game].mmrs[winner] ||= 2000
+    @storage.mmr[game].mmrs[loser] ||= 2000
 
     winnerMmr = @storage.mmrs[winner]
     loserMmr = @storage.mmrs[loser]
@@ -74,8 +75,8 @@ class ScoreKeeper
     loserMmr = parseInt(loserMmr, 10)
     @robot.logger.info("Winner is #{winnerMmr}")
     @robot.logger.info("Loser is #{loserMmr}")
-    @storage[game].mmrs[winner] = winnerMmr
-    @storage[game].mmrs[loser] = loserMmr
+    @storage.mmr[game].mmrs[winner] = winnerMmr
+    @storage.mmr[game].mmrs[loser] = loserMmr
     [winnerMmr, loserMmr]
 
   mmrScore: (a, b) ->
@@ -83,8 +84,8 @@ class ScoreKeeper
     1.0 / (1.0 + Math.pow(10, exponent))
 
   reset: (game) ->
-    @storage[game].mmrs = {}
-    @storage[game].games = []
+    @storage.mmr[game].mmrs = {}
+    @storage.mmr[game].games = []
     @robot.brain.save()
 
 module.exports = (robot) ->
