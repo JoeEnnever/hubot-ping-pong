@@ -28,7 +28,6 @@ class ScoreKeeper
           games: [] # Each game is { user1: score, user2: score }
           mmrs: {} # player -> MMR
         }
-      console.log(JSON.stringify(@storage))
       @users = ("@#{data.name}" for id, data of @robot.brain.users())
 
     @robot.brain.on "loaded", storageLoaded
@@ -39,7 +38,7 @@ class ScoreKeeper
     game[player1] = score1
     game[player2] = score2
     console.log(JSON.stringify(game))
-    console.log(JSON.stringify(@storage[game]))
+    console.log(JSON.stringify(@storage.mmr))
     @storage.mmr[game].games.push(game)
     [winner, loser] =
       if score1 > score2
