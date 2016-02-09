@@ -22,7 +22,6 @@ class ScoreKeeper
   constructor: (@robot, @games) ->
     storageLoaded = =>
       @storage = @robot.brain.data
-      console.log(JSON.stringify(@games))
       for game in @games
         @storage[game] ||= {
           games: [] # Each game is { user1: score, user2: score }
@@ -49,7 +48,7 @@ class ScoreKeeper
     mmrChange
 
   userExists: (user) ->
-    user in users
+    user in @users
 
   mmrs: (game) ->
     _.pick @storage[game].mmrs, (_value, key) =>
@@ -117,7 +116,7 @@ module.exports = (robot) ->
     score2 = parseInt(score2, 10)
     game = game.toLowerCase()
     unless game in games
-      msg.send "I don't know game #{game}, just #{games}"
+      msg.send "I don't know #{game}, just #{games}"
       return
     [winner, loser, high, low] = if score1 > score2
                [person1, person2, score1, score2]
@@ -141,7 +140,7 @@ module.exports = (robot) ->
     [__, game, countStr] = msg.match
     game = game.toLowerCase()
     unless game in games
-      msg.send "I don't know game #{game}, just #{games}"
+      msg.send "I don't know #{game}, just #{games}"
       return
     count = parseInt(countStr) || 5
     mmrs = ([player, mmr] for player, mmr of scoreKeeper.mmrs(game))
