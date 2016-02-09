@@ -34,12 +34,12 @@ class ScoreKeeper
     storageLoaded() # just in case storage was loaded before we got here
 
   record: (game, player1, score1, player2, score2) ->
-    game = {}
-    game[player1] = score1
-    game[player2] = score2
+    record = {}
+    record[player1] = score1
+    record[player2] = score2
     console.log(JSON.stringify(game))
     console.log(JSON.stringify(@storage.mmr))
-    @storage.mmr[game].games.push(game)
+    @storage.mmr[game].games.push(record)
     [winner, loser] =
       if score1 > score2
         [player1, player2]
