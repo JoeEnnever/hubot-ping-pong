@@ -61,8 +61,8 @@ class ScoreKeeper
     @storage.mmr[game].mmrs[winner] ||= 2000
     @storage.mmr[game].mmrs[loser] ||= 2000
 
-    winnerMmr = @storage.mmrs[winner]
-    loserMmr = @storage.mmrs[loser]
+    winnerMmr = @storage.mmr[game].mmrs[winner]
+    loserMmr = @storage.mmr[game].mmrs[loser]
 
     winnerExpectedScore = @mmrScore(winnerMmr, loserMmr)
     @robot.logger.info("Winner was #{winnerMmr}")
