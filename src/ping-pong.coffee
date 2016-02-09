@@ -27,7 +27,6 @@ class ScoreKeeper
           games: [] # Each game is { user1: score, user2: score }
           mmrs: {} # player -> MMR
         }
-      @storage.pingpong = @storage.pingPong
       @users = ("@#{data.name}" for id, data of @robot.brain.users())
 
     @robot.brain.on "loaded", storageLoaded
